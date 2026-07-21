@@ -2,7 +2,11 @@
 
 ## 2026-07-21
 - Widened `locations.side_of_st` from VARCHAR(5) to VARCHAR(20); source data included full values like "West Bound", not just directional abbreviations
-- Added PostGIS extension and `geom` geometry column to `locations` for spatial queries
+- Added PostGIS extension and `geom` geometry column to `locations` for spatial queries:
+    ALTER TABLE locations ADD COLUMN geom geometry(Point, 4326);
+    UPDATE locations
+    SET geom = ST_SetSRID(ST_MakePoint(longitude, latitude), 4326)
+    WHERE longitude IS NOT NULL AND latitude IS NOT NULL;
 
 ## 2026-07-20
 - Initial schema created in PostgreSQL: asset_types, locations, installations, condition_inspections

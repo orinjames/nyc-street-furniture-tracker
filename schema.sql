@@ -1,3 +1,5 @@
+CREATE EXTENSION IF NOT EXISTS postgis;
+
 CREATE TABLE IF NOT EXISTS asset_types (
 	asset_type_id SERIAL PRIMARY KEY,
 	rack_type VARCHAR(50) NOT NULL
@@ -17,7 +19,8 @@ CREATE TABLE IF NOT EXISTS locations (
     nta_name VARCHAR(100),
     fema_fldz VARCHAR(20),
     hrc_evac VARCHAR(20),
-    the_geom TEXT
+    the_geom TEXT,
+	geom geometry(Point, )
 );
 
 CREATE TABLE IF NOT EXISTS installations (
@@ -35,7 +38,5 @@ CREATE TABLE IF NOT EXISTS condition_inspections (
 	condition_rating INTEGER CHECK (condition_rating BETWEEN 1 and 5),
 	notes TEXT
 );
-
-
 
 
